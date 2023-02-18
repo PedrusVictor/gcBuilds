@@ -1,0 +1,20 @@
+.Selo{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.seloBlock{
+    display: flex;
+    justify-content: center;
+    
+    
+}
+.seloContent{
+    display: flex;
+    justify-content: center;
+}
+.seloContent input{
+    margin-left: 1%;
+    
+    text-align: center;
+}

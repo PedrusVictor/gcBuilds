@@ -1,0 +1,21 @@
+.item{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    width: 120px;
+    border-radius: 10px;
+    background-color: rgb(218, 178, 105);
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+.item:hover{
+    cursor: pointer;
+    background-color: rgba(1, 149, 223, 0.438);
+}
+.item img {
+    height: 50px;
+    width: 50px;
+}

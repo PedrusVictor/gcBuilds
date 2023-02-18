@@ -1,0 +1,31 @@
+.nav{
+    width: 100%;
+    
+}
+.nav ul{
+    list-style: none;
+    
+    text-align: center;
+}
+.nav li{
+
+    display: inline;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.nav li:hover{
+    border-bottom: 2px solid #ffbb7a;
+}
+.nav a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.832);
+    font-weight: bold;
+}
+.nav a:hover{
+    color:#ffbb7a;
+}
+
+.nav img:hover{
+    
+    content: url('../../imgs/gclogohover.png');
+}
