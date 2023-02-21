@@ -54,7 +54,7 @@ export function Selo(props){
     <div className="Selo">
        {selo.map((sel,index)=>(
         <div key={index}>
-           
+           <label>{sel[0].name}</label>
             <div className="seloContent">
                 
                 {sel.slice(1).map((s,i)=>
@@ -64,8 +64,12 @@ export function Selo(props){
                     
                     
                         (<div className='seloBlock' key={i}>
-                            <img src={s.icon}/>
-                            <input type="number" min="0" max={s.max_points} value={props.selo[(index*9)+i] } onChange={e=>updateSelo(e.target.value,((index*9)+i))}/>
+                            <img src={s.icon} title={s.name}/>
+                            {props.read?
+                            <input type="number" min="0" max={s.max_points} value={props.selo[(index*9)+i] } onChange={e=>updateSelo(e.target.value,((index*9)+i))} readOnly/>
+                            :<input type="number" min="0" max={s.max_points} value={props.selo[(index*9)+i] } onChange={e=>updateSelo(e.target.value,((index*9)+i))}/>}
+                            
+                            
                         </div>) 
                         
                        

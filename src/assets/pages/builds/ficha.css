@@ -21,7 +21,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
-    line-height: 120px;
+    line-height: 60px;
     position: relative;
     
     color: #4d72ff;

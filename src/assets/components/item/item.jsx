@@ -7,7 +7,7 @@ export function Item(props){
    
     return(
         
-            <div className='item' onClick={()=>navigate(props.link)}>
+            <div className='item' onClick={()=>props.objeto?navigate('/ficha',{state:props.objeto}) : navigate(props.link )}>
                 
                     <img src={props.avatar}/>
                    <label >

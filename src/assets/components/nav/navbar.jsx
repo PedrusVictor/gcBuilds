@@ -9,9 +9,9 @@ export function NavBar(){
         <ul>
             <li><Link to="#"><img src='/src/assets/imgs/gclogo.png' style={{height:"30px"}}/> Chaser Builders</Link></li>
             <li><Link to='/'>Inicio</Link></li>
-            <li><Link to='/pers' >Cadastrar Personagem</Link> </li>
-            <li><Link to='/builds' >Builds</Link>  </li>
-            <li><Link to='/ficha' >ficha</Link>  </li>
+            <li><Link to='/pers' > Personagem</Link> </li>
+            
+           
         </ul>    
         </div>
         

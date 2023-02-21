@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Route, Link,Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link,Routes, BrowserRouter } from "react-router-dom";
 import { Index } from "../index/index";
 import { Builds } from "../builds/builds";
 import { Personagens } from "../builds/personagens";
@@ -13,7 +13,8 @@ export function App() {
 
 
   return (
-    <Router>
+  
+    <Router >
       <div className='content'>
         
             <header>
@@ -21,12 +22,15 @@ export function App() {
             </header>
             
           <div className='contentBody'>
-            <Routes>
+            <Routes >
+              
               <Route exact path="/" element={<Index/>} />
               <Route path="/builds" element={<Builds/>} />
               <Route path="/pers" element={<Personagens/>} />
               <Route path="/info/:id" element={<Personagem/>} />
-              <Route path="/ficha" element={<Ficha/>} />
+              <Route path="/ficha" element={<Ficha />} />
+              
+              
             </Routes>
             
           </div>
@@ -36,6 +40,7 @@ export function App() {
         
       </div>
     </Router>
+   
   )
 }
 

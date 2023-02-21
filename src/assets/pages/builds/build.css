@@ -70,7 +70,10 @@
 
   .iconOpt{
     height: 30px;
+    
   }
   .chaserContentOpt{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }

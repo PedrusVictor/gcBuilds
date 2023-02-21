@@ -4,9 +4,12 @@ import './build.css'
 import Select from "react-select"
 import { SelectInput } from "../../components/selectInput/selectInput"
 import { Selo } from "../../selo"
+import { useNavigate } from 'react-router-dom';
 //import { Chaser } from "../../chaser"
 export function Builds(props){
+    const navigate = useNavigate();
     const [nomeBuild,setNomeBuild]=useState()
+    const [personagens, setPersonagens]=useState([])
     const [personagem,setpersonagem]=useState()
     const [selectedEquips, setSelectedEquips] = useState([]);
     const [Encantamentos,setEncantamentos]=useState(Array.from({length: 3}, () => ''));
@@ -15,7 +18,7 @@ export function Builds(props){
     const [espLvl,setespLvl]=useState([])
     const [upSkills,setUpSkills]=useState([])
     const [chaser,setChaser]=useState([])
-    const [pChaser,setPChaser]=useState(0)
+    
     const [selos,setSelos]=useState(Array(27).fill(0));
     const [pSelo,setPselo]=useState(0)
     const [timeR,setTimeR]=useState([])
@@ -91,39 +94,14 @@ export function Builds(props){
         {value:"aumentar cura",label:"aumentar cura"}
     ]
 
-    const skillsOpt=[
-        {value:"active1",label:<><img src={props.pers.skills.active1[0].image} title="S1" style={{height:"30px"}}/> <div>S1</div></> },
-        {value:"active2",label:<><img src={props.pers.skills.active2[0].image} title="S2" style={{height:"30px"}}/><div>S2</div> </>},
-        {value:"passive",label:<><img src={props.pers.skills.passive[0].image} title="Passive" style={{height:"30px"}}/><div>Passive</div></> }
-    ]
+ 
 
     const subAtArma=["chance de ignorar defesa","aumentar duração de debuffs em inimigos", "redução de duração de debuffs", "chance de defender crítico"].map(at=>({value:at,label:at}))
     const subAtSArma=["aumentar dano em pvp", "redução de dano recebido em pvp", "aumentar dano causada à chefes"].map(at=>({value:at,label:at}))
     const subAtCota=["chance de crítico","chance de defender crítico","aumenta a cura recebida"].map(at=>({value:at,label:at}))
     const subAtSArmadura=["aumentar dano crítico causado", "redução de dano crítico recebido", "aumentar a cura recebida"].map(at=>({value:at,label:at}))
 
-    /*
-    const Chaser=[
-        {value:"Força Exorbitante",label:"Força Exorbitante"},
-        {value:"Vitalidade Tenaz",label:"Vitalidade Tenaz"},
-        {value:"Assistência",label:"Assistência"},
-        {value:"Oração das Bençãos",label:"Oração das Bençãos"},
-
-        {value:"Mãos Ilusorias",label:"Mãos Ilusorias"},
-        {value:"Proteção Divina",label:"Proteção Divina"},
-        {value:"Sorte Abençoada",label:"Sorte Abençoada"},
-        {value:"Sopro de Vida",label:"Sopro de Vida"},
-
-        {value:"Laços",label:"Laços"},
-        {value:"Impeto",label:"Impeto"},
-        {value:"executor assiduo",label:"executor assiduo"},
-        {value:"A Sacerdotisa da Alma",label:"A Sacerdotisa da Alma"},
-
-        {value:"Upgrade I",label:"Upgrade I"},
-        {value:"Upgrade II",label:"Upgrade II"},
-    ]
-
-*/
+    
 
 
 //const ChaserOpt=Chaser.map((c,index)=>({ value:index,label:(<img key={c.key} src={ c.icon} title={c.name} style={{height:"30px"}}/>)}))
@@ -132,16 +110,31 @@ useEffect(()=>{
     async function fetchPers(){
         
         const data=await(await fetch("http://localhost:3000")).json()
-       
-        const p=data.map((Per)=>({value:Per.name,label:<><img key={Per.name} src={Per.avatar} title={Per.name} className="iconOpt" /><div>{Per.name}</div></>}))
+        setPersonagens(data)
+        const p=data.map((Per,index)=>({value:index,label:<><img key={Per.name} src={Per.avatar} title={Per.name} className="iconOpt" /><div>{Per.name}</div></>}))
         
         setPers(p)
         
     }
-    setpersonagem(props.pers)
+    //setpersonagem(props.pers)
     fetchPers()
    
 },[])
+const [skillsOpt,setSkillsOpt]=useState([])
+const AlterarSkillsOpt=(persId)=>{
+    const persSel=personagens[persId.value]
+    setUpSkills([])
+    setpersonagem(persSel)
+    const newSkills=[
+        {value:"active1",label:(<><img src={persSel.skills.active1[0].image} title="S1" style={{height:"30px"}}/> <div>S1</div></>) },
+        {value:"active2",label:(<><img src={persSel.skills.active2[0].image} title="S2" style={{height:"30px"}}/><div>S2</div> </>)},
+        {value:"passive",label:(<><img src={persSel.skills.passive[0].image} title="Passive" style={{height:"30px"}}/><div>Passive</div></>) }
+    ]
+   
+    
+    setSkillsOpt(newSkills)
+
+}
 
  
     const handleChange = (selectedOptions) => {
@@ -151,7 +144,23 @@ useEffect(()=>{
     };
 
     //add build
+/*
+    const Reset=()=>{
+        setNomeBuild("");
+        setpersonagem();
+        setSelectedEquips([]);
+        setEncantamentos(Array.from({length: 3}, () => ''));
+        setsubAtributos(Array.from({length: 4}, () => ''));
+        setAccs(Array.from({length: 3}, () => ''));
+        setespLvl([]);
+        setUpSkills([]);
+        setChaser([])
+        setSelos([])
+        setPselo(0)
+        setTimeR([])
 
+    }
+*/
     const [builds,setBuilds]=useState([])
    
     const handleSubmit = (e) => {
@@ -163,17 +172,25 @@ useEffect(()=>{
                 nomeB: nomeBuild,
                 personagem:personagem,
                 equip: selectedEquips.map(equip => equip.value).join(', '),
-                enc: Encantamentos.map(enc=>enc.value).join(' , '),
-                subAt:subAtributos.map(sub=>sub.value).join(' , '),
-                accs : accs.map(acces=>acces.value).join(' , '),
+                enc: Encantamentos.map(enc=>enc).join(' , '),
+                subAt:subAtributos.map(sub=>sub).join(' , '),
+                accs : accs.map(acces=>acces).join(' , '),
                 espLvl:espLvl.map(esp=>esp.value).join(' , '),
-                upSklls: upSkills,
+                upSkills: upSkills.map(skill=>skill.value),
                 chaser:chaser,
                 selo:selos,
-                timeR:timeR,
+                timeR:timeR.map((p)=> personagens[p.value]),
             };
             
             setBuilds(prevBuilds => [...prevBuilds, buildC]);
+            fetch('http://localhost:3000/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(buildC)
+            })
+        .then(response => response.json())
+        .then(data=>{navigate("/")})
+        .catch(error => console.error(error));
         } else {
             // Adicione aqui sua lógica de validação
             confirm("existem campos não preenchidos")
@@ -186,16 +203,22 @@ useEffect(()=>{
         <div className="build">
 
             
-
+            <div className="form-group">
+                <label htmlFor="personagem">Personagem:</label>
+                {/**<input type="text" id="personagem"  className="form-control" value={props.pers.name}  onChange={e=>setpersonagem(e.target.value)} readOnly/> */}
+                {pers?  <Select
+               onChange={AlterarSkillsOpt}
+               options={pers}
+               
+             
+    />:"" }
+            </div>
             <div className="form-group">
                 <label htmlFor="buildName">Nome Build:</label>
                 <input id="buildName" type="text" className="form-control" onChange={e=>setNomeBuild(e.target.value)}/>
             </div>
 
-            <div className="form-group">
-                <label htmlFor="personagem">Personagem:</label>
-                <input type="text" id="personagem"  className="form-control" value={props.pers.name} onChange={e=>setpersonagem(e.target.value)} readOnly/>
-            </div>
+            
 
             <div className="form-group">
                 <label htmlFor="equipamentos">Equipamentos:</label>
@@ -254,11 +277,12 @@ useEffect(()=>{
                 />
                 
             </div>
+
+
             <div className="form-group">
                 <label htmlFor="UpSkills">UpSkills:</label>
                 {/** <input type="text"  className="form-control"  onChange={e=>setUpSkills(e.target.value)}/>*/}
-                
-                <Select
+                { personagem? <Select
                
                  options={skillsOpt}
                  onChange={(selectskills)=>{if(selectskills.length<=2){setUpSkills(selectskills)}}}
@@ -267,7 +291,8 @@ useEffect(()=>{
                 classNamePrefix="select"
                value={upSkills}
                 
-                />
+                />:"" }
+                
             </div>
 
 
@@ -317,7 +342,7 @@ useEffect(()=>{
    
     {builds.map((b)=>
 
-        <Item key={b.nomeB} name={b.nomeB} />
+        <Item key={b.nomeB} name={b.nomeB} avatar={b.personagem.icon}/>
     )}
     
 </div>

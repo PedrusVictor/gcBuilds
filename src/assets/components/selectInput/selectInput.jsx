@@ -1,5 +1,5 @@
 import Select from "react-select";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Chaser } from "../../chaser";
 export function SelectInput(props){
     const [selectedOptions, setSelectedOptions] = useState([]);
@@ -54,7 +54,7 @@ export function SelectInput(props){
     <div className="chaserContentOpt">
       { selectedOptions.map((option, index) => (
 
-      <div key={index } style={{display:"flex"}}>
+      <div key={index } style={{display:"flex",margin:"1%"}}>
         <img src={Chaser[option.value].icon} className="iconOpt"/>
         <input key={index}
           type="number"
