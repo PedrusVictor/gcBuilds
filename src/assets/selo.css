@@ -12,6 +12,7 @@
 .seloContent{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .seloContent input{
     margin-left: 1%;

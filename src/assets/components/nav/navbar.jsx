@@ -6,13 +6,30 @@ export function NavBar(){
 
         <div className='nav'>
 
-        <ul>
-            <li><Link to="#"><img src='/src/assets/imgs/gclogo.png' style={{height:"30px"}}/> Chaser Builders</Link></li>
+        {/** 
+         * <ul>
+            <li><Link to='/'><img  /></Link></li>
+            <li><Link to="#">  Chaser Builders</Link></li>
             <li><Link to='/'>Inicio</Link></li>
             <li><Link to='/pers' > Personagem</Link> </li>
             
            
-        </ul>    
+        </ul> 
+        */}
+         <div className='navLogo'>
+            <Link to='/'><img  /></Link> <h1>Chaser Builders</h1> 
+            </div>
+         
+        <div style={{display:"flex",width:"20em",justifyContent:"space-around"}}>
+            
+                
+                <><Link to='/'>Inicio</Link></>
+                <><Link to='/pers' > Personagem</Link> </>
+            
+        
+        </div>
+            
+           
         </div>
         
     )

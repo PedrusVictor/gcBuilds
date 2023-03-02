@@ -9,70 +9,70 @@ export function Ficha  () {
   const [selos,setSelos]=useState(state.selo)
   const skills=state.upSkills.map(skill=> state.personagem.skills[skill][0])
   return (
-    <div className="personagem-container">
-        {/*<img className="bg"  src="https://img.koggames.com/ES/microsite/2022/0525/luciel-4th-path/preview-emptiness.png"/>*/}
-        <img className="bg"  src={state.personagem.image}/>
-        <h1 className="personagem-nome">{state.nomeB}</h1>
-        <h2 className="personagem-nome">{state.personagem.name}</h2>
-      <div className="personagem-informacoes">
-        <div className="personagem-linha">
-          <div className="personagem-coluna">
-            <span className="personagem-label">Equipamento:</span>
-            {/**<span className="personagem-valor"> {state.equip} </span> */}
-            <div>{state.equip}</div>
-          </div>
-          <div className="personagem-coluna">
-            <span className="personagem-label">Encantamentos:</span>
-            <div> {state.enc} </div>
-          </div>
-          <div className="personagem-coluna">
-            <span className="personagem-label">Acessórios:</span>
-            <div>{state.accs}</div>
-          </div>
+    
+<div className="ficha">
+
+  <div className="personagem-container">
+    <img className="imgbg" src="https://i.imgur.com/85duhdG.png"/>
+    <div style={{display:"flex",flexDirection:"row"}}>
+      <img src="https://i.imgur.com/d1myBrQ.jpg" style={{border:"3px solid #b84e4e",borderRadius:"5px"}}/>
+      <div className="pers-item" style={{marginLeft:"3%"}}>
+        <div style={{display:"flex"}}>
+          <label className="item-name">Amy Plie(t)</label>
+          <img className="iconType" src="https://i.imgur.com/GcoK8Yh.png"/>
         </div>
-
-
-        <div className="personagem-linha">
-          <div className="personagem-coluna">
-            <span className="personagem-label">Especialização de lvl:</span>
-            <div>{state.espLvl}</div>
-          </div>
-          <div className="personagem-coluna">
-            <span className="personagem-label">Skill Upgrades:</span>
-            <div>
-            {skills.map(skill=>(<img key={skill.name} src={skill.image} title={skill.name} />))}
-            </div>
-           
-          </div>
-          
-        </div>
-
-        <div className="personagem-linha">
-          <div className="personagem-coluna">
-            <span className="personagem-label">Chaser:</span>
-            <div>
-              {state.chaser.map((c,index)=>(<div key={index}><img src={c.icon} className="iconOpt" /><label> x {c.value}</label></div>)) }
-
-            </div>
-          </div>
-          <div className="personagem-coluna">
-            <span className="personagem-label">Selo:</span>
-            <Selo selo={selos} setSelo={setSelos} />
-          </div>
-          <div className="personagem-coluna">
-            <label>Time Recomendado:</label>
-            <div>
-            {timeR.map((p,index)=><img key={index} src={p.avatar}  className="iconOpt" read="true"/>)}
-            </div>
-            
-          </div>
-        </div>
-
         
-        
+        <label className="item-name buildN">Build Doida</label>
       </div>
-      
     </div>
+    <div className="pers-item">
+      <label className="item-name">Equipamentos</label>
+      <div className="item-content"></div>
+    </div>
+    <div className="pers-item">
+      <label className="item-name">Acessórios</label>
+      <div className="item-content"></div>
+    </div>
+    <div className="pers-item">
+      <label className="item-name left">Sub Atributos</label>
+      <div className="item-content"></div>
+    </div>
+    <div className="pers-item chaser">
+      <label className="item-name">Chaser</label>
+      <div className="item-content"></div>
+    </div>
+    
+    <div className="pers-item">
+      <label className="item-name left">Espec de Lvl</label>
+      <div className="item-content"></div>
+    </div>
+    
+    <div className="pers-item selo">
+      <label className="item-name">Selo</label>
+      <div className="item-content"></div>
+    </div>
+    
+    <div className="pers-item" style={{gridRow:4}}>
+      <label className="item-name left">Encantamentos</label>
+      <div className="item-content"></div>
+    </div>
+    <div className="pers-item" style={{gridColumn:1}}>
+      <label className="item-name left">Skill Ups</label>
+      <div className="item-content"></div>
+    </div>
+    <div className="pers-item" style={{gridColumn:1}}>
+      <label className="item-name left">Time Recomendado</label>
+      <div className="item-content"></div>
+    </div>
+
+
+  </div>
+  
+</div>  
+
+
+
+  
   );
 };
 

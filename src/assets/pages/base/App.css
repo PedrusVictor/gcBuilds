@@ -1,7 +1,8 @@
 header{
  /* background-color: #79376b;*/
   width: 100%;
-  height: 10%;
+  /*height: 10%;*/
+  display: flex;
 }
 
 footer{
@@ -39,5 +40,15 @@ footer{
   flex-direction: column;
   align-items: center;
 }*/
+.tPersonagens{
+  display: flex;
+}
+@media screen and (max-width: 501px) {
+    .tPersonagens{
+      flex-direction: column;
+    }
+}
 
- 
+.iconType{
+  height: 32px;
+}

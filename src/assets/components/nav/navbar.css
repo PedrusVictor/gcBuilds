@@ -1,11 +1,20 @@
 .nav{
     width: 100%;
-    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .nav ul{
     list-style: none;
     
     text-align: center;
+}
+.navLogo{
+    display: flex;
+    align-items: center;
+    color: white;
+    width: 20em;
+    justify-content: center;
 }
 .nav li{
 
@@ -13,18 +22,21 @@
     margin-left: 2%;
     margin-right: 2%;
 }
-.nav li:hover{
-    border-bottom: 2px solid #ffbb7a;
+.nav a:hover{
+    border-bottom: 3px solid #ffbb7a;
 }
 .nav a{
     text-decoration: none;
     color: rgba(255, 255, 255, 0.832);
     font-weight: bold;
-}
-.nav a:hover{
-    color:#ffbb7a;
+    margin: 2%;
 }
 
+.nav img{
+    
+    content: url('../../imgs/gclogo.png');
+    height: 30px;
+}
 .nav img:hover{
     
     content: url('../../imgs/gclogohover.png');

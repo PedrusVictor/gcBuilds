@@ -50,6 +50,7 @@ export function SelectInput(props){
       options={ChaserOpt}
       value={selectedOptions}
       onChange={handleSelectChange}
+      filterOption={props.filterOption}
     />
     <div className="chaserContentOpt">
       { selectedOptions.map((option, index) => (

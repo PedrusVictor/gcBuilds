@@ -1,3 +1,4 @@
+/*
 .personagem-container {
     background-color: lightgray;
     padding: 20px;
@@ -41,4 +42,69 @@
     filter: grayscale(1);
   }
   
+  */
+  .bg{
+    height: 70vh;
+    filter: grayscale(1);
+  position: absolute;
   
+  }
+  .ficha{
+    display: flex;
+    padding: 1%;
+    background-color: #eeebe6;
+    justify-content: center;
+    width: 63%;
+  }
+  .imgbg{
+   
+    position: absolute;
+    top: 18%;
+    left: 46%;
+    right: 0;
+    bottom: 0;
+    height: 78%;
+    /*background-image: url("https://i.imgur.com/85duhdG.png");*/
+    background-repeat: no-repeat;
+    background-position: left;
+    opacity: 15%;
+    filter: sepia(1);
+    background-size: auto 75%;
+  }
+  .personagem-container{
+    background-color: #f1eee8;
+    display: grid;
+    grid-template-columns: 20vw 20vw 20vw;
+    grid-template-rows: 5em 5em 5em 5em 5em 5em;
+    grid-gap: 1em;
+    padding: 1%;
+    border: 2px solid #d8b192;
+  }
+  
+.pers-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.item-name{
+  font-size: 1.5rem;
+  font-family: aclonica;
+  color: #9f5c5c;
+}
+.item-name.buildN{
+  font-size: 1.7rem;
+  color: #b491a0;
+  text-decoration: underline 1px;
+}
+.item-name.left{
+  text-align: left;
+  
+}
+.pers-item.chaser{
+  grid-column: 2/span 2;
+  grid-row: 2/span 2;
+}
+.pers-item.selo{
+  grid-column: 2/span 2;
+  grid-row: 4/span 6;
+}
