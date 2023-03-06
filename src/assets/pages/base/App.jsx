@@ -8,10 +8,25 @@ import './App.css'
 
 import {NavBar}  from '../../components/nav/navbar'
 import { Ficha } from "../builds/ficha";
+import { uri } from "../../../uri";
+import { useState,useEffect } from "react";
+
 export function App() {
-  
+  const [Pers,setPers]=useState([])
 
-
+  useEffect(()=>{
+    async function fetchPers(){
+        
+        //const data=await(await fetch("http://localhost:3000")).json()
+        const data=await(await fetch(uri)).json()
+        
+        setPers(data)
+        
+    }
+    fetchPers()
+    
+   
+},[])
   return (
   
     <Router >
@@ -25,10 +40,10 @@ export function App() {
             <Routes >
               
               <Route exact path="/" element={<Index/>} />
-              <Route path="/builds" element={<Builds/>} />
-              <Route path="/pers" element={<Personagens/>} />
-              <Route path="/info/:id" element={<Personagem/>} />
-              <Route path="/ficha" element={<Ficha />} />
+              <Route path="/builds" element={<Builds Pers={Pers}/>} />
+              <Route path="/pers" element={<Personagens Pers={Pers}/>}  />
+              <Route path="/info/:id" element={<Personagem Pers={Pers}/>} />
+              <Route path="/ficha" element={<Ficha Pers={Pers}/>} />
               
               
             </Routes>

@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    background-color: white;
 }
 .nav ul{
     list-style: none;
@@ -12,7 +13,7 @@
 .navLogo{
     display: flex;
     align-items: center;
-    color: white;
+    color: rgba(112, 99, 99, 0.832);
     width: 20em;
     justify-content: center;
 }
@@ -24,20 +25,22 @@
 }
 .nav a:hover{
     border-bottom: 3px solid #ffbb7a;
+    color: rgb(18, 17, 17);
+    
 }
 .nav a{
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.832);
+    color: rgba(112, 99, 99, 0.832);
     font-weight: bold;
     margin: 2%;
+}
+.nav a.active{
+    color: rgb(18, 17, 17);
+    border-bottom: 3px solid #ffbb7a;
 }
 
 .nav img{
     
-    content: url('../../imgs/gclogo.png');
-    height: 30px;
-}
-.nav img:hover{
-    
     content: url('../../imgs/gclogohover.png');
+    height: 30px;
 }

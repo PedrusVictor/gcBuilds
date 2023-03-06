@@ -46,9 +46,10 @@
   .bg{
     height: 70vh;
     filter: grayscale(1);
-  position: absolute;
-  
+    position: absolute;
+    
   }
+  
   .ficha{
     display: flex;
     padding: 1%;
@@ -57,10 +58,10 @@
     width: 63%;
   }
   .imgbg{
-   
+    pointer-events: none;
     position: absolute;
     top: 18%;
-    left: 46%;
+    left: 40%;
     right: 0;
     bottom: 0;
     height: 78%;
@@ -71,11 +72,13 @@
     filter: sepia(1);
     background-size: auto 75%;
   }
+  
+
   .personagem-container{
     background-color: #f1eee8;
     display: grid;
     grid-template-columns: 20vw 20vw 20vw;
-    grid-template-rows: 5em 5em 5em 5em 5em 5em;
+    grid-template-rows: 4em 6em 5em 5em 5em 5em;
     grid-gap: 1em;
     padding: 1%;
     border: 2px solid #d8b192;
@@ -84,27 +87,59 @@
 .pers-item{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
 }
 .item-name{
   font-size: 1.5rem;
   font-family: aclonica;
   color: #9f5c5c;
 }
+.item-content{
+ 
+  color: #b491a0;
+
+}
 .item-name.buildN{
   font-size: 1.7rem;
   color: #b491a0;
   text-decoration: underline 1px;
 }
-.item-name.left{
+.left{
   text-align: left;
   
 }
 .pers-item.chaser{
   grid-column: 2/span 2;
-  grid-row: 2/span 2;
+  grid-row: 2;
 }
 .pers-item.selo{
   grid-column: 2/span 2;
-  grid-row: 4/span 6;
+  grid-row: 3/span 6;
+}
+.iconAt{
+  height: 14px;
+}
+.topoFicha{
+  display:flex;
+  flex-direction:row;
+}
+@media screen and (max-width: 500px) {
+  .personagem-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .ficha{
+    width: 100%;
+  }
+  .topoFicha{
+    justify-content: center;
+  }
+ 
+  .pers-item{
+    align-items: center;
+  }
+  .imgbg{
+    display: none;
+  }
+
 }

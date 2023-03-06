@@ -30,8 +30,8 @@ export function SelectInput(props){
           for(let a =0;a<selectedOptions.length;a++){
             valor+=`${selectedOptions[a].value} : ${nArray[a]}; `
           }*/
-          const valor=selectedOptions.map((op,index)=>({name:Chaser[op.value].name,icon:Chaser[op.value].icon,value:nArray[index]}))
-          
+          //const valor=selectedOptions.map((op,index)=>({name:Chaser[op.value].name,icon:Chaser[op.value].icon,value:nArray[index]}))
+          const valor=(selectedOptions.map((op,index)=>({id:op.value,value:nArray[index]})))
           
           props.setChaserValues(valor)
         }

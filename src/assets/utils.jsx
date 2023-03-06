@@ -80,6 +80,12 @@ const accessorios=[
 
 ]
 ]
+const type={
+    "guerreiro":"https://i.imgur.com/GcoK8Yh.png",
+    "mago":"https://i.imgur.com/rdyCtKh.png",
+    "guardião":"https://i.imgur.com/NoysvOs.png",
+    "suporte":"https://i.imgur.com/EovI6WU.png",
+    "atirador":"https://i.imgur.com/2EPUmgq.png"
+}
 
-
-export {encantamentos,subAtributos,espLvl,equipamentos,accessorios}
+export {encantamentos,subAtributos,espLvl,equipamentos,accessorios,type}

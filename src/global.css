@@ -3,10 +3,10 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-   /* background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);*/
+   /* background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);
    background: url("../src/assets/imgs/bg.png");
   background-size: 100% 100%;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat;*/
    
     
 }

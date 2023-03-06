@@ -6,11 +6,13 @@ import { SelectInput } from "../../components/selectInput/selectInput"
 import { Selo } from "../../selo"
 import { useNavigate } from 'react-router-dom';
 import { uri } from "../../../uri"
+
+import {encantamentos as en,subAtributos as sub,espLvl as esp,equipamentos as eqps,accessorios as ac}  from "../../utils"
 //import { Chaser } from "../../chaser"
 export function Builds(props){
     const navigate = useNavigate();
     const [nomeBuild,setNomeBuild]=useState()
-    const [personagens, setPersonagens]=useState([])
+    const [personagens, setPersonagens]=useState(props.Pers)
     const [personagem,setpersonagem]=useState()
     const [selectedEquips, setSelectedEquips] = useState([]);
     const [Encantamentos,setEncantamentos]=useState(Array.from({length: 3}, () => ''));
@@ -35,13 +37,13 @@ export function Builds(props){
     //equipamentos options
   
     const equips=[
-        {value:"Força da Raiva", label:'Força da Raiva',color:"blue"},
-        {value:"Pesar da Paixão", label:'Pesar da Paixão',color:"orange"},
-        {value:"Energia da Sorte", label:'Energia da Sorte',color:"pink"},
-        {value:"Promessa da Fúria", label:'Promessa da Fúria',color:"green"},
-        {value:"Vingança Sangrenta", label:'Vingança Sangrenta',color:"red"}
+        {value:0, label:'Força da Raiva',color:"blue"},
+        {value:1, label:'Pesar da Paixão',color:"orange"},
+        {value:2, label:'Energia da Sorte',color:"pink"},
+        {value:3, label:'Promessa da Fúria',color:"green"},
+        {value:4, label:'Vingança Sangrenta',color:"red"}
     ]
-
+/*
     const encOptionsA=[
         {value:"Aum dano hab",label:"Aum dano hab"},
         {value:"Red dano rec hab",label:"Red dano rec hab"},
@@ -60,9 +62,7 @@ export function Builds(props){
         {value:"Def Mag",label:"Def Mag"},
         {value:"Vitalidade",label:"Vitalidade"},
     ]
-    
-
-    const AnelOptions=[
+     const AnelOptions=[
         
         {value:"cdr especial",label:"cdr especial"},
         {value:"critico",label:"critico"},
@@ -83,7 +83,7 @@ export function Builds(props){
         {value:"red dano hab",label:"red dano hab"},
 
     ];
-    const EspLvlOp=[
+     const EspLvlOp=[
         {value:"critico",label:"critico" },
         {value:"cdr",label:"cdr" },
         {value:"vel atk",label:"vel atk"},
@@ -94,14 +94,29 @@ export function Builds(props){
         {value:"aum dano ao ign def",label:"aum dano ao ign def"},
         {value:"aumentar cura",label:"aumentar cura"}
     ]
-
- 
-
     const subAtArma=["chance de ignorar defesa","aumentar duração de debuffs em inimigos", "redução de duração de debuffs", "chance de defender crítico"].map(at=>({value:at,label:at}))
     const subAtSArma=["aumentar dano em pvp", "redução de dano recebido em pvp", "aumentar dano causada à chefes"].map(at=>({value:at,label:at}))
     const subAtCota=["chance de crítico","chance de defender crítico","aumenta a cura recebida"].map(at=>({value:at,label:at}))
     const subAtSArmadura=["aumentar dano crítico causado", "redução de dano crítico recebido", "aumentar a cura recebida"].map(at=>({value:at,label:at}))
+    */
 
+
+    const encOptionsA=en[2].map((e,index)=>({value:index,label:e.name}))
+    const encOptionsV=en[1].map((e,index)=>({value:index,label:e.name}))
+    const encOptionsC=en[0].map((e,index)=>({value:index,label:e.name}))
+   
+    const AnelOptions=ac[0].map((e,index)=>({value:index,label:<><img src={e.icon} key={index} className="iconOpt"/><div>{e.name}</div></>}))
+    const ColarOptions=ac[1].map((e,index)=>({value:index,label:<><img src={e.icon} key={index} className="iconOpt"/><div>{e.name}</div></>}))
+    const BrincoOption=ac[2].map((e,index)=>({value:index,label:<><img src={e.icon} key={index} className="iconOpt"/><div>{e.name}</div></>}))
+
+    const EspLvlOp=esp.map((e,index)=>({value:index,label:<><img src={e.icon} key={index} className="iconOpt"/><div>{e.name}</div></>}))
+    
+    const subAtArma=sub[0].map((e,index)=>({value:index,label:e.name}))
+    const subAtSArma=sub[1].map((e,index)=>({value:index,label:e.name}))
+    const subAtCota=sub[2].map((e,index)=>({value:index,label:e.name}))
+    const subAtSArmadura=sub[3].map((e,index)=>({value:index,label:e.name}))
+    
+    
     
 
 
@@ -115,21 +130,25 @@ useEffect(()=>{
     async function fetchPers(){
         
         //const data=await(await fetch("http://localhost:3000")).json()
-        const data=await(await fetch(uri)).json()
+       
+        const data =personagens==null?personagens:await(await fetch(uri)).json()
         setPersonagens(data)
-        const p=data.map((Per,index)=>({value:index,label:<><img key={Per.name} src={Per.avatar} title={Per.name} className="iconOpt" /><div>{Per.name}</div></>}))
+        
+        const p=data.map((Per)=>({value:Per._id,label:<><img key={Per.name} src={Per.avatar} title={Per.name} className="iconOpt" /><div>{Per.name}</div></>}))
         
         setPers(p)
         
     }
     //setpersonagem(props.pers)
+    
     fetchPers()
    
 },[])
 
 const [skillsOpt,setSkillsOpt]=useState([])
 const AlterarSkillsOpt=(persId)=>{
-    const persSel=personagens[persId.value]
+    //const persSel=personagens[persId.value]
+    const persSel=personagens.find((p)=>p._id==persId.value)
     setUpSkills([])
     setpersonagem(persSel)
     const newSkills=[
@@ -175,7 +194,7 @@ const AlterarSkillsOpt=(persId)=>{
         e.preventDefault();
         
         if (nomeBuild && personagem && selectedEquips.length>0 && Encantamentos && accs && espLvl && upSkills && chaser && selos && timeR) {
-            const buildC = {
+            const buildC = {/*
                 nomeB: nomeBuild,
                 personagem:personagem,
                 equip: selectedEquips.map(equip => equip.value).join(', '),
@@ -186,7 +205,18 @@ const AlterarSkillsOpt=(persId)=>{
                 upSkills: upSkills.map(skill=>skill.value),
                 chaser:chaser,
                 selo:selos,
-                timeR:timeR.map((p)=> personagens[p.value]),
+                timeR:timeR.map((p)=> personagens[p.value]),*/
+                nomeB: nomeBuild,
+                personagem:personagem._id,
+                equip: selectedEquips.map(equip => equip.value),
+                enc: Encantamentos,
+                subAt:subAtributos,
+                accs : accs,
+                espLvl:espLvl.map(esp=>esp.value),
+                upSkills: upSkills.map(skill=>skill.value),
+                chaser:chaser,
+                selo:selos,
+                timeR:timeR.map(t=>t.value),
             };
             
             setBuilds(prevBuilds => [...prevBuilds, buildC]);
@@ -328,6 +358,7 @@ const AlterarSkillsOpt=(persId)=>{
                options={pers}
                onChange={(selectTime)=>{if(timeR.length<4){setTimeR(selectTime)}}}
               isMulti
+              
               className="basic-multi-select" 
               classNamePrefix="select"
              value={timeR}
@@ -350,9 +381,8 @@ const AlterarSkillsOpt=(persId)=>{
         </div>
         
 
-
-
-<div className="buildsList">
+{/**
+ * <div className="buildsList">
    
     {builds.map((b)=>
 
@@ -360,6 +390,9 @@ const AlterarSkillsOpt=(persId)=>{
     )}
     
 </div>
+ */}
+
+
 
 
         </div>

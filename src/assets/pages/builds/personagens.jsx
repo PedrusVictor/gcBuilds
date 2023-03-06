@@ -5,9 +5,9 @@ import { uri } from "../../../uri"
 
 import { Item } from "../../components/item/item"
 import { Link } from 'react-router-dom'
-export function Personagens(){
+export function Personagens(props){
     
-    const [Pers,setPers]=useState([])
+    const [Pers,setPers]=useState(props.Pers)
     
     useEffect(()=>{
         async function fetchPers(){
@@ -18,7 +18,18 @@ export function Personagens(){
             setPers(data)
             
         }
-        fetchPers()
+      
+            
+            
+            if(Pers!=null){
+                
+                fetchPers()
+            }   
+            
+            
+            
+        
+        
        
     },[])
     
@@ -30,7 +41,8 @@ export function Personagens(){
             <h1 style={{marginLeft:"0.5em"}}><Link to="/builds"> Criar Build </Link></h1>
         </div>
        <div className="PersList">
-       {Pers.map(p=>
+
+       {Pers && Pers.map(p=>
                 <Item key={p._id} name={p.name} avatar={p.avatar}  link={"/info/"+p._id}/>
                     
                 
