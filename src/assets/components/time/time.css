@@ -1,0 +1,35 @@
+.CompContainer{
+    width: 10%;
+    background-color: rgb(218, 178, 105);
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+    align-items: center;
+    border-radius: 10px;
+    border:2px solid white;
+    padding: 0.25%;
+    
+}
+.compP{
+
+   display: flex;
+   
+}
+.likeR{
+    height: 50%;
+}
+.likeR:hover{
+    cursor: pointer;
+}
+.rateContaine{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+
+}
+@media screen and (max-width: 500px) {
+    .CompContainer{
+        width: 50%;
+    }
+}

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { Selo } from "../../selo";
 import { Chaser } from "../../chaser";
-import {encantamentos as en,subAtributos as sub,espLvl as esp,equipamentos as eqps,accessorios as ac,type}from "../../utils"
+import {encantamentos as en,subAtributos as sub,espLvl as esp,equipamentos as eqps,accessorios as ac,type,pets}from "../../utils"
 import { uri } from "../../../uri";
 import './ficha.css'
 export function Ficha  (props) {
@@ -13,6 +13,7 @@ export function Ficha  (props) {
   const [selos,setSelos]=useState(state.selo)
   const [personagem,setPersonagem]=useState()
   const [timeR,setTimeR]=useState([])
+  const [pet,setPet]=useState(pets[state.pet])
   ///const skills=state.upSkills.map(skill=> state.personagem.skills[skill][0])
 
 
@@ -33,6 +34,7 @@ export function Ficha  (props) {
       const time=state.timeR.map(p=>data.find(s=> s._id==p))
       setTimeR(time)
       setPersonagem(pers)
+      
     }
     
     loadInfo()
@@ -132,6 +134,8 @@ export function Ficha  (props) {
       <div className="item-content">
         {timeR.map(p=>
         <img key={"timeR"+p.name} src={p.avatar} title={p.name} className="iconOpt"/>)}
+        <img key={"pet"+pet.name} src={pet.avatar} title={pet.name} className="iconOpt"/>
+
       </div>
     </div>
 

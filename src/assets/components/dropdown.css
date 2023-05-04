@@ -1,0 +1,21 @@
+.dropdown{
+    display: contents;
+    
+}
+.dropdown-menu{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ffbb7a;
+    left: 74.5%;
+
+}
+.dropdown-menu li{
+    text-align: center;
+}
+.dropdown-menu a:hover{
+    background-color:#ffbb7a;
+    color: white;
+}

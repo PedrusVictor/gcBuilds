@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react"
-import { Item } from "../../components/item/item"
+
 import './build.css'
 import Select from "react-select"
 import { SelectInput } from "../../components/selectInput/selectInput"
@@ -7,7 +7,7 @@ import { Selo } from "../../selo"
 import { useNavigate } from 'react-router-dom';
 import { uri } from "../../../uri"
 
-import {encantamentos as en,subAtributos as sub,espLvl as esp,equipamentos as eqps,accessorios as ac}  from "../../utils"
+import {encantamentos as en,subAtributos as sub,espLvl as esp,equipamentos as eqps,accessorios as ac,pets}  from "../../utils"
 //import { Chaser } from "../../chaser"
 export function Builds(props){
     const navigate = useNavigate();
@@ -26,8 +26,12 @@ export function Builds(props){
     const [pSelo,setPselo]=useState(0)
     const [timeR,setTimeR]=useState([])
     
+    const [isT,setIsT]=useState(false)
+
+    const [pet,setPet]=useState()
 
 
+    
     const colorStyles={
         control:(styles)=>({...styles,backgroundColor:"white"}),
         option:(styles,{data,isDisable,isFocused,isSelected})=>{
@@ -43,62 +47,7 @@ export function Builds(props){
         {value:3, label:'Promessa da Fúria',color:"green"},
         {value:4, label:'Vingança Sangrenta',color:"red"}
     ]
-/*
-    const encOptionsA=[
-        {value:"Aum dano hab",label:"Aum dano hab"},
-        {value:"Red dano rec hab",label:"Red dano rec hab"},
-        {value:"Red dano rec atk",label:"Red dano rec atk"},
-        {value:"Aum dano atk bas",label:"Aum dano atk bas"},
-    ];
-    const encOptionsV=[
-        {value:"critico",label:"critico"},
-        {value:"cdr",label:"cdr"},
-        {value:"vel. ataque",label:"vel. ataque"},
-        {value:"cdr especial",label:"cdr especial"},
-    ];
-    const encOptionsC=[
-        {value:"Ataque",label:"Ataque"},
-        {value:"Def Fis",label:"Def Fis"},
-        {value:"Def Mag",label:"Def Mag"},
-        {value:"Vitalidade",label:"Vitalidade"},
-    ]
-     const AnelOptions=[
-        
-        {value:"cdr especial",label:"cdr especial"},
-        {value:"critico",label:"critico"},
-        {value:"vel atk",label:"vel atk"},
-        {value:"red dano rec atk bas",label:"red dano rec atk bas"}
 
-    ]
-    const ColarOptions=[
-        {value:"red dano hab",label:"red dano hab"},
-        {value:"cdr",label:"cdr"},
-        {value:"crit",label:"crit"},
-        {value:"cdr especial",label:"cdr especial"}
-    ]
-    const BrincoOption=[
-        {value:"cdr",label:"cdr"},
-        {value:"vel atk",label:"vel atk"},
-        {value:"red dano atk bas",label:"red dano atk bas"},
-        {value:"red dano hab",label:"red dano hab"},
-
-    ];
-     const EspLvlOp=[
-        {value:"critico",label:"critico" },
-        {value:"cdr",label:"cdr" },
-        {value:"vel atk",label:"vel atk"},
-        {value:"red dano atk bas",label:"red dano atk bas"},
-        {value:"red dano hab",label:"red dano hab"},
-        {value:"aum dano atk bas",label:"aum dano atk bas"},
-        {value:"aum dano hab",label:"aum dano hab"},
-        {value:"aum dano ao ign def",label:"aum dano ao ign def"},
-        {value:"aumentar cura",label:"aumentar cura"}
-    ]
-    const subAtArma=["chance de ignorar defesa","aumentar duração de debuffs em inimigos", "redução de duração de debuffs", "chance de defender crítico"].map(at=>({value:at,label:at}))
-    const subAtSArma=["aumentar dano em pvp", "redução de dano recebido em pvp", "aumentar dano causada à chefes"].map(at=>({value:at,label:at}))
-    const subAtCota=["chance de crítico","chance de defender crítico","aumenta a cura recebida"].map(at=>({value:at,label:at}))
-    const subAtSArmadura=["aumentar dano crítico causado", "redução de dano crítico recebido", "aumentar a cura recebida"].map(at=>({value:at,label:at}))
-    */
 
 
     const encOptionsA=en[2].map((e,index)=>({value:index,label:e.name}))
@@ -116,6 +65,7 @@ export function Builds(props){
     const subAtCota=sub[2].map((e,index)=>({value:index,label:e.name}))
     const subAtSArmadura=sub[3].map((e,index)=>({value:index,label:e.name}))
     
+    const PetsOp=pets.map((e,index)=>({value:index,label:<><img src={e.avatar} key={index} className="iconOpt"/><div>{e.name}</div></>}))
     
     
 
@@ -157,6 +107,7 @@ const AlterarSkillsOpt=(persId)=>{
         {value:"passive",label:(<><img src={persSel.skills.passive[0].image} title="Passive" style={{height:"30px"}}/><div>Passive</div></>) }
     ]
    
+    setIsT(persSel.name.includes('(t)'))
     
     setSkillsOpt(newSkills)
 
@@ -170,24 +121,8 @@ const AlterarSkillsOpt=(persId)=>{
     };
 
     //add build
-/*
-    const Reset=()=>{
-        setNomeBuild("");
-        setpersonagem();
-        setSelectedEquips([]);
-        setEncantamentos(Array.from({length: 3}, () => ''));
-        setsubAtributos(Array.from({length: 4}, () => ''));
-        setAccs(Array.from({length: 3}, () => ''));
-        setespLvl([]);
-        setUpSkills([]);
-        setChaser([])
-        setSelos([])
-        setPselo(0)
-        setTimeR([])
 
-    }
-*/
-    const [builds,setBuilds]=useState([])
+    
    
     const handleSubmit = (e) => {
         console.log("entrou no add")
@@ -217,20 +152,25 @@ const AlterarSkillsOpt=(persId)=>{
                 chaser:chaser,
                 selo:selos,
                 timeR:timeR.map(t=>t.value),
+                pet:pet,
+                rate:0
             };
             
-            setBuilds(prevBuilds => [...prevBuilds, buildC]);
+            
             /*fetch('http://localhost:3000/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(buildC)
             })*/
+
+            const token=localStorage.getItem('session')? JSON.parse(localStorage.getItem('session')).token:""
             fetch(`${uri}/add`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token },
                 body: JSON.stringify(buildC)
                 })
-        .then(response => response.json())
+        .then(response => response.status==401?localStorage.clear() :(response.json()))
         .then(data=>{navigate("/")})
         .catch(error => console.error(error));
         } else {
@@ -322,7 +262,7 @@ const AlterarSkillsOpt=(persId)=>{
             </div>
 
 
-            <div className="form-group">
+            {!isT? <div className="form-group">
                 <label htmlFor="UpSkills">UpSkills:</label>
                 {/** <input type="text"  className="form-control"  onChange={e=>setUpSkills(e.target.value)}/>*/}
                 { personagem? <Select
@@ -336,7 +276,9 @@ const AlterarSkillsOpt=(persId)=>{
                 
                 />:"" }
                 
-            </div>
+            </div>:""}
+
+           
 
 
             <div className="form-group">
@@ -365,6 +307,10 @@ const AlterarSkillsOpt=(persId)=>{
              filterOption={customFilterOption}
     />:"" }
                 
+            </div>
+            <div className="form-group">
+            <label htmlFor="timeR">Pet:</label>
+            {PetsOp?<Select options={PetsOp} onChange={(e)=>setPet(e.value)}/>:""}
             </div>
             
             <div className="form-group" style={{width:"100%"}}>

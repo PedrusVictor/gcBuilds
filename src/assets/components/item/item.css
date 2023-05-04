@@ -19,3 +19,16 @@
     height: 50px;
     width: 50px;
 }
+.rateContaine{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+
+}
+.likeR{
+    height: 50%;
+}
+.likeR:hover{
+    cursor: pointer;
+}

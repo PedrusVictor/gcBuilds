@@ -1,37 +1,77 @@
 import './navbar.css'
-import { Link } from 'react-router-dom'
+import { NavLink,useLocation } from 'react-router-dom'
 import { useState } from 'react'
-export function NavBar(){
+import { useNavigate } from "react-router-dom"
+import { uri } from '../../../uri'
 
-    const [currentPage,setCurrentPage]=useState("home")
-    const [hoverPage,setHoverPage]=useState()
+export function NavBar(props){
+    const location = useLocation();
+    const navigate=useNavigate()
+    const [isOpen, setIsOpen] = useState(true);
+   
+    const contList=[
+      {"path":"/wb","text":"World Boss"},
+      {"path":"/vulc","text":"Vulcanus"}
+    ]
+    const links = [
+        { path: '/', text: 'Inicio', id: 'home' },
+        { path: '/pers', text: 'Personagem', id: 'pers' },
+        { path: '/contents', text: 'Modos de Jogo', id: 'Contents' },
+        
+       
+      ];
+
+      function Logout(){
+
+      
+        fetch(`${uri}/logout`,{
+          method:'Post',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response=>{localStorage.clear();navigate("/login");props.setUsuario(null)})
+        .catch(error => console.error(error));
+      }
     return(
 
         <div className='nav'>
 
-        {/** 
-         * <ul>
-            <li><Link to='/'><img  /></Link></li>
-            <li><Link to="#">  Chaser Builders</Link></li>
-            <li><Link to='/'>Inicio</Link></li>
-            <li><Link to='/pers' > Personagem</Link> </li>
-            
-           
-        </ul> 
-        */}
+        
          <div className='navLogo'>
-            <Link to='/' className={currentPage==="home"?"active":""}  onClick={()=>setCurrentPage("home")}><img  /></Link> <h1>Chaser Builders</h1> 
+            <NavLink to='/' className={location.pathname==="/"?"active":""}  >
+                <img  />
+            </NavLink> <h1>Chaser Builders</h1> 
             </div>
          
         <div style={{display:"flex",width:"20em",justifyContent:"space-around"}}>
             
+
+        {links.map(({ path, text, id }) => (
+          <NavLink
+            key={id}
+            to={path}
+            className={location.pathname === path ? 'active' : "link" }
+            
+          >
+            {text}
+          </NavLink>
+        ))}
+
+          
+          
                 
-                <><Link to='/' className={currentPage==="home"&&hoverPage!="pers"?"active":""}  onClick={()=>setCurrentPage("home")} onMouseEnter={()=>setHoverPage("home")} onMouseLeave={()=>setHoverPage("")}>Inicio</Link></>
-                <><Link to='/pers'className={currentPage==="pers"&&hoverPage!="home"?"active":""}  onClick={()=>setCurrentPage("pers")} onMouseEnter={()=>setHoverPage("pers")} onMouseLeave={()=>setHoverPage("")}> Personagem</Link> </>
             
         
         </div>
-            
+        <div>
+        <label>{props.usuario?props.usuario.login:""}</label>
+        {/*<NavLink to="/login" className={location.pathname === '/login' ? 'active' : "link" }>
+          {!localStorage.getItem("session")?'login':'logout'}
+        </NavLink>*/}
+        <NavLink  to="/login" className={location.pathname === '/login' ? 'active' : "link" } onClick={props.usuario?Logout:""}>
+          {!props.usuario?'login/cadastro':'logout'}
+        </NavLink>
+        
+        </div>
            
         </div>
         

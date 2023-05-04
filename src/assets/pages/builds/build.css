@@ -42,6 +42,7 @@
     width: 30%;
     
   }
+ 
   
   .form-group label {
     font-weight: bold;
@@ -94,3 +95,13 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+  .column{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+.imgContent{
+  width: 50%;
+  margin:0 auto
+}

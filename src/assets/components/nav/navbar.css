@@ -23,21 +23,23 @@
     margin-left: 2%;
     margin-right: 2%;
 }
-.nav a:hover{
-    border-bottom: 3px solid #ffbb7a;
-    color: rgb(18, 17, 17);
-    
-}
-.nav a{
+
+.nav a,.link{
     text-decoration: none;
     color: rgba(112, 99, 99, 0.832);
     font-weight: bold;
     margin: 2%;
 }
-.nav a.active{
+.link:hover{
+    background-color:#ffbb7a;
+    color: white;
+}
+.active{
     color: rgb(18, 17, 17);
     border-bottom: 3px solid #ffbb7a;
+    background-color: rgba(255, 255, 255, 0);
 }
+
 
 .nav img{
     
